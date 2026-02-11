@@ -1,3 +1,4 @@
 uv.lock
 src/github_trending_cli/__pycache__/*
 .vscode/launch.json
+tests/__pycache__/*
