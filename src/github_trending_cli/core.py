@@ -19,7 +19,7 @@ def parse_duration(duration_str) -> int:
 # build since YYYY-MM-DD
 # from days 
 def since_date(days: int, today: date | None = None) -> str:
-    today = today or date.today()
+    today = date.today() if today is None else today
     since_date = today-timedelta(days = days)
     return since_date.isoformat()
 
