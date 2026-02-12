@@ -1,26 +1,30 @@
 from .errors import InvalidDurationError
 from datetime import date, timedelta
+
 _ALLOWED = {
-    '1w': 7,
-    '1m': 30,
-    '3m': 90,
-    '6m': 180,
-    '1y': 365,
+    "1w": 7,
+    "1m": 30,
+    "3m": 90,
+    "6m": 180,
+    "1y": 365,
 }
+
 
 # parse duration to number of days
 # e.g. 1 week -> 7
 def parse_duration(duration_str) -> int:
     if duration_str not in _ALLOWED:
-        raise InvalidDurationError(f"duration must be one of following: " + " ".join(_ALLOWED.keys()))
+        raise InvalidDurationError(
+            "duration must be one of following: " + " ".join(_ALLOWED.keys())
+        )
     return _ALLOWED[duration_str]
 
 
 # build since YYYY-MM-DD
-# from days 
+# from days
 def since_date(days: int, today: date | None = None) -> str:
     today = date.today() if today is None else today
-    since_date = today-timedelta(days = days)
+    since_date = today - timedelta(days=days)
     return since_date.isoformat()
 
 

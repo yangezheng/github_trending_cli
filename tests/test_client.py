@@ -1,8 +1,9 @@
 import github_trending_cli.client as client
 
+
 def test_trending_calls_api_and_maps(monkeypatch):
     # define fake search
-    def fake_search_query_from(query: str, limit:int):
+    def fake_search_query_from(query: str, limit: int):
         assert "created:>=" in query
         assert limit == 2
 
@@ -22,10 +23,11 @@ def test_trending_calls_api_and_maps(monkeypatch):
                 "language": None,
             },
         ]
+
     # substitute fake search
     monkeypatch.setattr(client, "search_query_from", fake_search_query_from)
 
-    repos = client.trending("1w",2)
+    repos = client.trending("1w", 2)
 
     assert len(repos) == 2
     assert repos[0].full_name == "a/b"
@@ -36,5 +38,3 @@ def test_trending_calls_api_and_maps(monkeypatch):
     assert repos[1].full_name == "c/d"
     assert repos[1].stars == 9
     assert repos[1].description is None
-
-
