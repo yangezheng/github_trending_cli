@@ -12,7 +12,7 @@ _ALLOWED = {
 # e.g. 1 week -> 7
 def parse_duration(duration_str) -> int:
     if duration_str not in _ALLOWED:
-        raise InvalidDurationError(f"duration must be one of".join(_ALLOWED))
+        raise InvalidDurationError(f"duration must be one of following: " + " ".join(_ALLOWED.keys()))
     return _ALLOWED[duration_str]
 
 

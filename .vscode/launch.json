@@ -16,6 +16,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "github_trending_cli.cli",
+            "args": ["-d","1w"],
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/src"

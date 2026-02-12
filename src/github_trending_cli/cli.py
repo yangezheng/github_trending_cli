@@ -1,7 +1,7 @@
 import argparse
-from .core import parse_duration,since_date, build_query
-from .github_api import search_query_from
+from .client import trending
 from .errors import InvalidDurationError, InvalidLimitError, GitHubAPIError
+import sys
 
 def main():
     parser = argparse.ArgumentParser(description="GitHub Trending CLI, use this library to retrieve the most stared repos for the last period of time")
@@ -10,19 +10,17 @@ def main():
     args = parser.parse_args()
 
     try:
-        days = parse_duration(args.duration)
-        since = since_date(days)
-        query = build_query(since)
-
-        repos = search_query_from(query=query, limit = args.limit)
-
-        for repo in repos:
-            print(f"{repo['full_name']} with {repo['stargazers_count']} stars")
-        
-    except InvalidDurationError as e:
-        print(f"Error: {e}")
+        repos = trending(args.duration, args.limit)        
+    except (InvalidDurationError, InvalidLimitError) as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 2
     except GitHubAPIError as e:
-        print(f"API Error: {e}")
-    
+        print(f"API Error: {e}", file = sys.stderr)
+        return 3
+
+    for repo in repos:
+        print(f"{repo.full_name} with {repo.stars} stars, at url: {repo.url}")
+    return 0
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
