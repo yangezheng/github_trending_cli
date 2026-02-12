@@ -1,0 +1,31 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            
+            - uses: actions/setup-python@v5
+            with:
+                python-version: "3.11"
+            
+            - name: Install
+            runs: |
+                python -m pip install --upgrade pip
+                pip install -e .
+                pip install pytest ruff
+
+            - name: Ruff (lint)
+            run: ruff check .
+
+            - name: Ruff (format)
+            run: ruff format --check .
+
+            - name: Pytest
+            run: pytest -q
+            
