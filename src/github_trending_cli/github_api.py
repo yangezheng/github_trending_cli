@@ -39,11 +39,28 @@ def search_query_from(
         raise GitHubAPIError(f"Network error: {e}") from e
 
     if resp.status_code != 200:
+
+        def _rate_limit_hint(resp: requests.Response) -> str:
+            limit = resp.headers.get("X-RateLimit-Limit")
+            remaining = resp.headers.get("X-RateLimit-Remaining")
+            reset = resp.headers.get("X-RateLimit-Reset")
+
+            parts = []
+            if limit and remaining:
+                parts.append(f"rate_limit remaining={remaining}/{limit}")
+            if reset:
+                parts.append(f"resets_at_unix={reset}")
+
+            if parts:
+                return " (" + ", ".join(parts) + ")"
+            return ""
+
         try:
             msg = resp.json().get("message", "")
         except Exception:
             msg = resp.text[:200]
-        raise GitHubAPIError(f"Github API error {resp.status_code}: {msg}")
+        hint = _rate_limit_hint(resp)
+        raise GitHubAPIError(f"Github API error {resp.status_code}: {msg}{hint}")
 
     data = resp.json()
     items = data.get("items", [])
