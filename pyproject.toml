@@ -1,7 +1,7 @@
 [project]
 name = "github-trending-cli"
 version = "0.1.0"
-description = "Add your description here"
+description = "GitHub trending repositories CLI and library"
 readme = "README.md"
 authors = [
     { name = "Yange", email = "posterscofield@gmail.com" }
