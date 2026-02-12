@@ -4,12 +4,12 @@ class GHTTrendingError(Exception):
 
 
 class InvalidDurationError(GHTTrendingError):
-    pass
+    "invalid duration"
 
 
 class InvalidLimitError(GHTTrendingError):
-    pass
+    "invalid limit"
 
 
 class GitHubAPIError(GHTTrendingError):
-    pass
+    "github api requests fail"
