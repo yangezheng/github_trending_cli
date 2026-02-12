@@ -4,3 +4,4 @@ src/github_trending_cli/__pycache__/*
 tests/__pycache__/*
 scratch.py
 .vscode/*
+.env
