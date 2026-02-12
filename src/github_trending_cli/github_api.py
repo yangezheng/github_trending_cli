@@ -8,7 +8,7 @@ GITHUB_SEARCH_URL = "https://api.github.com/search/repositories"
 def search_query_from(query: str, limit: int) -> list[dict]:
     if limit <= 0:
         return []
-    per_page = min(limit, 10)
+    per_page = min(limit, 100)
 
     params = {
         "q" : query,
