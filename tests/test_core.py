@@ -17,5 +17,8 @@ def test_since_date():
     today = date(2026,2,10)
     assert since_date(days = 7,today = today) == date(2026,2,3).isoformat()
 
+def test_today():
+    assert since_date(days=0) == date.today().isoformat()
+
 def test_build_query():
     assert build_query("2026-02-01") == "created:>=2026-02-01"
