@@ -9,14 +9,19 @@ authors = [
 requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.12.5",
-    "pytest>=9.0.2",
     "requests>=2.32.5",
-    "ruff>=0.15.0",
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.0",
+]
 
 [project.scripts]
 ghtrend = "github_trending_cli.cli:main"
