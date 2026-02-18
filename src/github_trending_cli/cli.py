@@ -34,6 +34,7 @@ def main() -> int:
         "--output",
         choices=["text", "json"],
         default="text",
+        help="Choose the output format to be text or json.",
     )
 
     parser.add_argument(
