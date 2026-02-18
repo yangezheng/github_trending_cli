@@ -21,10 +21,16 @@ def main():
         default=10,
         help="set the number of repos you want to retrieve",
     )
+    parser.add_argument(
+        "-t",
+        "--token",
+        type=str,
+        help="Pass in the access token for GitHub API.",
+    )
     args = parser.parse_args()
 
     try:
-        repos = trending(args.duration, args.limit)
+        repos = trending(duration=args.duration, limit=args.limit, token=args.token)
     except (InvalidDurationError, InvalidLimitError) as e:
         print(f"Error: {e}", file=sys.stderr)
         return 2
