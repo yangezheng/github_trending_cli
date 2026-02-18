@@ -3,6 +3,7 @@ from .client import trending
 from .errors import InvalidDurationError, InvalidLimitError, GitHubAPIError
 import sys
 import logging
+from .formatters import render_json, render_text
 
 
 def main() -> int:
@@ -29,6 +30,13 @@ def main() -> int:
         help="Pass in the access token for GitHub API.",
     )
     parser.add_argument(
+        "-o",
+        "--output",
+        choices=["text", "json"],
+        default="text",
+    )
+
+    parser.add_argument(
         "-v", "--verbose", action="store_true", help="Enable debug logging."
     )
 
@@ -49,8 +57,12 @@ def main() -> int:
         print(f"API Error: {e}", file=sys.stderr)
         return 3
 
-    for repo in repos:
-        print(f"{repo.full_name} with {repo.stars} stars, at url: {repo.url}")
+    if args.output == "json":
+        out = render_json(repos)
+    else:
+        out = render_text(repos)
+    print(out, file=sys.stdout)
+
     return 0
 
 
