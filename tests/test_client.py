@@ -3,7 +3,7 @@ import github_trending_cli.client as client
 
 def test_trending_calls_api_and_maps(monkeypatch):
     # define fake search
-    def fake_search_query_from(query: str, limit: int):
+    def fake_search_query_from(query: str, limit: int, **kwargs):
         assert "created:>=" in query
         assert limit == 2
 
