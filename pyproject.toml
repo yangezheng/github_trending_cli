@@ -1,8 +1,9 @@
 [project]
-name = "github-trending-cli"
-version = "0.1.0"
+name = "github-trending-repos-api"
+version = "0.1.1"
 description = "GitHub trending repositories CLI and library"
 readme = "README.md"
+license = { file = "LICENSE" }
 authors = [
     { name = "Yange", email = "posterscofield@gmail.com" }
 ]
@@ -18,7 +19,6 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "build>=1.4.0",
     "pre-commit>=4.5.1",
     "pytest>=9.0.2",
     "ruff>=0.15.0",
@@ -27,3 +27,8 @@ dev = [
 [project.scripts]
 ghtrend = "github_trending_cli.cli:main"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/github_trending_cli"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/**", "README.md", "LICENSE", "pyproject.toml"]
