@@ -6,3 +6,4 @@ scratch.py
 .vscode/*
 .env
 ghtrend.log
+dist/*
