@@ -2,9 +2,10 @@ import argparse
 from .client import trending
 from .errors import InvalidDurationError, InvalidLimitError, GitHubAPIError
 import sys
+import logging
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(
         description="GitHub Trending CLI, use this library to retrieve the most stared repos for the last period of time"
     )
@@ -27,7 +28,17 @@ def main():
         type=str,
         help="Pass in the access token for GitHub API.",
     )
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Enable debug logging."
+    )
+
     args = parser.parse_args()
+
+    logging.basicConfig(
+        filename="ghtrend.log",
+        level=logging.DEBUG if args.verbose else logging.WARNING,
+        format="%(levelname)s %(name)s: %(message)s",
+    )
 
     try:
         repos = trending(duration=args.duration, limit=args.limit, token=args.token)
